@@ -2,9 +2,10 @@
 <script type="text/javascript">
 $(document).ready(function () {
     $("#button").click(function() {
+      var string = $("#url").val();
       $("#count").text("loading");
       $.ajax({
-        url: "http://localhost:3000/query?url=" + $("#url").val(),
+        url: "http://localhost:3000/query?url=" + encodeURIComponent(string),
       }).done(function(data) {
         $("#count").text(data);
       });

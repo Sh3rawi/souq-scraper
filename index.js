@@ -23,10 +23,10 @@ page.open(url, function (status) {
       document.getElementsByClassName("unit-quantity-form")[0].submit();
     }, count);
     window.setTimeout(function() {
-      page.evaluate(function(count) {
-        count = document.getElementsByClassName("unit-quantity-input")[0].value;
-        console.log("real count", count);
-      }, count);
+      count = page.evaluate(function() {
+        return document.getElementsByClassName("unit-quantity-input")[0].value;
+      });
+      console.log("real count", count);
       if (!fs.exists('count.txt')) {
         fs.touch('count.txt');
       }
