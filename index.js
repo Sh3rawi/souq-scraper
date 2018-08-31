@@ -18,10 +18,20 @@ page.open(url, function (status) {
     console.log(page.title);
     console.log("options" + options.length);
     count = options.length;
-    if (!fs.exists('count.txt')) {
-      fs.touch('count.txt');
-    }
-    fs.write('count.txt', count, 'w');
-    phantom.exit()
+    page.evaluate(function(count) {
+      document.getElementsByName("quantity")[0].value = count;
+      document.getElementsByClassName("unit-quantity-form")[0].submit();
+    }, count);
+    window.setTimeout(function() {
+      page.evaluate(function(count) {
+        count = document.getElementsByClassName("unit-quantity-input")[0].value;
+        console.log("real count", count);
+      }, count);
+      if (!fs.exists('count.txt')) {
+        fs.touch('count.txt');
+      }
+      fs.write('count.txt', count, 'w');
+      phantom.exit()
+    }, 5000);
   }, 5000);
 });
