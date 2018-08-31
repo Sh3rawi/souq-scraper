@@ -1,0 +1,27 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+    $("#button").click(function() {
+      $("#count").text("loading");
+      $.ajax({
+        url: "http://localhost:3000/query?url=" + $("#url").val(),
+      }).done(function(data) {
+        $("#count").text(data);
+      });
+    });
+});
+</script>
+<div>
+  <form>
+  <div>
+    <label for="example">Put a complete url</label>
+    <input id="url" type="text" name="text">
+  </div>
+  <div>
+    <input type="button" id="button" value="Submit">
+  </div>
+  <div>
+    <p>Count:</p><p id="count">0</p>
+  </div>
+</form>
+</div>
